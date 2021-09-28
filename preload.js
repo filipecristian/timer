@@ -1,3 +1,4 @@
-const { contextBridge, ipcRenderer } = require('electron')
+const { contextBridge, ipcRenderer, shell } = require('electron');
 
-contextBridge.exposeInMainWorld('ipcRenderer', ipcRenderer)
+contextBridge.exposeInMainWorld('ipcRenderer', ipcRenderer);
+contextBridge.exposeInMainWorld('shell', shell);
