@@ -1,19 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="./css/index.css">
+    <title>Alura Timer</title>
+    <link rel="stylesheet" href="css/index.css">
 </head>
 
 <body>
-    <h1>Olá eu sou uma janela electron</h1>
-    <a href="#" id="about-link">Sobre</a>
+    <section class="container">
+        <div id="link-sobre">
+            <img class="info-button" src="img/info-button.svg" alt="link sobre">
+        </div>
+        <h1 class="titulo">Alura Timer</h1>
+        <div class="timer">
+            <div class="relogio">
+                <span class="tempo">00:10:23</span>
+            </div>
+            <div class='controles'>
+                <img class="botao-play" src="img/play-button.svg" alt="botao de play">
+            </div>
+            <div class="curso-container">
+                <span class="curso">logica-programação</span>
+            </div>
+        </div>
 
-    <script src="./js/renderer.js"></script>
+    </section>
+    <script src="js/renderer.js"></script>
 </body>
 
 </html>

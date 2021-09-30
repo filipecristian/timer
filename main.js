@@ -8,7 +8,8 @@ app.on('ready', () => {
         width: 600,
         height: 400,
         webPreferences: {
-            preload: `${__dirname}/preload.js`
+            nodeIntegration: true,
+            contextIsolation: false
         }
     });
 
@@ -29,7 +30,8 @@ ipcMain.on('open-about-window', () => {
             alwaysOnTop: true,
             frame: false,
             webPreferences: {
-                preload: `${__dirname}/preload.js`
+                nodeIntegration: true,
+                contextIsolation: false
             }
         });
         aboutWindow.on('closed', () => {
