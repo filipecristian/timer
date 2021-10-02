@@ -19,6 +19,7 @@
     "homepage": "https://github.com/filipecristian/timer#readme",
     "dependencies": {
         "electron": "^15.0.0",
+        "jsonfile-promised": "^0.0.1",
         "moment": "^2.29.1"
     }
 }

@@ -1,17 +1,22 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, Tray, Menu } = require('electron');
 const process = require('process');
+const data = require('./data');
+const template = require('./template');
+let tray = null;
 
 app.on('ready', () => {
-    console.log('Application started');
-
     let mainWindow = new BrowserWindow({
         width: 600,
         height: 400,
         webPreferences: {
             nodeIntegration: true,
-            contextIsolation: false
+            contextIsolation: false,
+            enableRemoteModule: true
         }
     });
+    tray = new Tray(`${__dirname}/app/img/icon-tray.png`);
+    let trayMenu = Menu.buildFromTemplate(template.geraTrayTemplate(mainWindow));
+    tray.setContextMenu(trayMenu);
 
     mainWindow.loadURL(`file://${__dirname}/app/index.html`);
 })
@@ -47,4 +52,8 @@ ipcMain.on('close-window-about', () => {
 
 ipcMain.handle('electron-version', () => {
     return process.versions.electron;
+});
+
+ipcMain.on('curso-parado', (event, curso, tempoEstudado) => {
+    data.saveData(curso, tempoEstudado);
 });
