@@ -10,8 +10,8 @@ let curso = document.querySelector('.curso');
 
 window.onload = () => {
     data.getDataCourse(curso.textContent)
-        .then((data) => {
-            time.textContent = data.time;
+        .then((res) => {
+            time.textContent = res.time;
         });
 }
 
@@ -36,7 +36,7 @@ playButton.addEventListener('click', function() {
 ipcRenderer.on('curso-trocado', (event, course) => {
     curso.textContent = course;
     data.getDataCourse(course)
-        .then((data) => {
-            time.textContent = data.time;
+        .then((res) => {
+            time.textContent = res.time;
         })
 });
