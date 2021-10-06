@@ -3,9 +3,10 @@ const process = require('process');
 const data = require('./data');
 const template = require('./template');
 let tray = null;
+let mainWindow = null;
 
 app.on('ready', () => {
-    let mainWindow = new BrowserWindow({
+    mainWindow = new BrowserWindow({
         width: 600,
         height: 400,
         webPreferences: {
@@ -18,6 +19,10 @@ app.on('ready', () => {
     let trayMenu = Menu.buildFromTemplate(template.geraTrayTemplate(mainWindow));
     tray.setContextMenu(trayMenu);
 
+    let menuPrincipal = Menu.buildFromTemplate(template.geraTemplateMenuPrincipal(app));
+    Menu.setApplicationMenu(menuPrincipal);
+
+    mainWindow.openDevTools();
     mainWindow.loadURL(`file://${__dirname}/app/index.html`);
 })
 
@@ -56,4 +61,10 @@ ipcMain.handle('electron-version', () => {
 
 ipcMain.on('curso-parado', (event, curso, tempoEstudado) => {
     data.saveData(curso, tempoEstudado);
+});
+
+ipcMain.on('curso-adicionado', (event, curso) => {
+    let novoTemplate = template.adicionarCursoNoTray(curso, mainWindow);
+    let novoTrayMenu = Menu.buildFromTemplate(novoTemplate);
+    tray.setContextMenu(novoTrayMenu);
 });
