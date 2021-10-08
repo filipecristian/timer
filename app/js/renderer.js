@@ -27,8 +27,16 @@ let play = false;
 playButton.addEventListener('click', function() {
     if (play) {
         timer.stop(curso.textContent);
+        new Notification('Timer', {
+            body: `O curso ${curso.textContent} foi parado`,
+            icon: 'img/stop-button.png'
+        });
     } else {
         timer.start(time);
+        new Notification('Timer', {
+            body: `O curso ${curso.textContent} foi iniciado`,
+            icon: 'img/play-button.png'
+        });
     }
     play = !play;
     imgs = imgs.reverse();
@@ -37,6 +45,11 @@ playButton.addEventListener('click', function() {
 
 botaoAdicionar.addEventListener('click', function() {
     let novoCurso = campoAdicionar.value;
+
+    if (!novoCurso) {
+        return;
+    }
+
     curso.textContent = novoCurso;
     time.textContent = '00:00:00';
     campoAdicionar.value = '';
@@ -46,8 +59,19 @@ botaoAdicionar.addEventListener('click', function() {
 
 ipcRenderer.on('curso-trocado', (event, course) => {
     curso.textContent = course;
+    timer.stop(course);
     data.getDataCourse(course)
         .then((res) => {
             time.textContent = res.time;
         })
+        .catch((err) => {
+            console.log('err', err);
+            time.textContent = '00:00:00';
+        })
+});
+
+
+ipcRenderer.on('atalho-iniciar-parar', () => {
+    let click = new MouseEvent('click');
+    playButton.dispatchEvent(click);
 });

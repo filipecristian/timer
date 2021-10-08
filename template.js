@@ -75,6 +75,7 @@ module.exports = {
                 label: 'Sobre',
                 submenu: [{
                     label: 'Sobre o Timer',
+                    accelerator: 'CmdOrCtrl+I',
                     click: () => {
                         ipcMain.emit('open-about-window');
                     }
